@@ -4,17 +4,20 @@ void setup()
 {
   size(800,800);
   table = loadTable("HabHYG15ly.csv", "header");
-  
-  loadData();
-  printStars();
-  
   background(0);
   border = createFont("Arial", 16, true);
+  name_font = createFont("Arial", 16, true);
+
+  loadData();
+  printStars();
+  drawGrid();
+  drawStars();
+  
 }
 
 Table table;
 ArrayList<Star> Star_Array = new ArrayList<Star>();
-PFont border;
+PFont border, name_font;
 Star stars;
 
 void loadData()
@@ -37,11 +40,11 @@ void printStars()
 {
   for(Star stars : Star_Array)
   {
-    println(stars);
+    //println(stars);
   }
 }
 
-void draw()
+void drawGrid()
 {
    for(int i=50; i < 750; i += 70)
    {
@@ -63,6 +66,32 @@ void draw()
    for(int i=-5, j=45; i < 6; i++, j += 70)
    {
      text(i, j, 25);
-   }
+   }  
+}
+
+
+void drawStars()
+{
+  for(int i=0; i < Star_Array.size(); i++)
+  {
+    float xVal = map(((Star_Array.get(i)).Xg), -5, 5, 50, 750);
+    float yVal = map(((Star_Array.get(i)).Yg), -5, 5, 50, 750);
+    String name = ((Star_Array.get(i)).DisplayName);
+    
+    stroke(200, 200, 0);
+    line(xVal-5, yVal, xVal+5, yVal);
+    line(xVal, yVal-5, xVal, yVal+5);
+    noFill();
+    stroke(255, 0, 0);
+    ellipse(xVal, yVal, 10, 10);
+    
+    textFont(name_font, 10);
+    fill(255);
+    textAlign(LEFT);
+    text(name, xVal+10, yVal+4); 
+  }
+}
+void draw()
+{
 
 }

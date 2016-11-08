@@ -18,6 +18,8 @@ void setup()
 Table table;
 ArrayList<Star> Star_Array = new ArrayList<Star>();
 PFont border, name_font;
+float disX, disY, disX2, disY2;
+boolean lock = false;
 Star stars;
 
 void loadData()
@@ -40,7 +42,7 @@ void printStars()
 {
   for(Star stars : Star_Array)
   {
-    //println(stars);
+    println(stars);
   }
 }
 
@@ -91,7 +93,46 @@ void drawStars()
     text(name, xVal+10, yVal+4); 
   }
 }
+
+void mousePressed()
+{ 
+  for(int i=0; i < Star_Array.size(); i++) //If mouse coordinates are within 10 pixels of Xg or Yg, toggle lock, 
+  {                                          //and put those values into disX and disY
+    if( (mouseX > ((Star_Array.get(i)).Xg)-10 && mouseX < ((Star_Array.get(i)).Xg)+10)
+       && (mouseY > ((Star_Array.get(i)).Yg)-10 && mouseY < ((Star_Array.get(i)).Yg)+10) )
+    {
+      lock = true;
+      disX = ((Star_Array.get(i)).Xg);
+      disY = ((Star_Array.get(i)).Yg);
+    }
+    else
+    {
+      lock = false;
+    }
+  }
+}
+
+void mouseDragged()
+{
+  disX2 = mouseX;
+  disY2 = mouseY;
+}
+
+void mouseReleased()
+{
+  lock = false;
+}
+
 void draw()
 {
-
+  if(lock == true)
+  {
+    stroke(255, 255, 0);
+  }
+  else
+  {
+    noStroke();
+  }
+  
+  line(disX, disY, disX2, disY2);
 }

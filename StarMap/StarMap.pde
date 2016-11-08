@@ -9,10 +9,12 @@ void setup()
   printStars();
   
   background(0);
+  border = createFont("Arial", 16, true);
 }
 
 Table table;
 ArrayList<Star> Star_Array = new ArrayList<Star>();
+PFont border;
 Star stars;
 
 void loadData()
@@ -41,11 +43,26 @@ void printStars()
 
 void draw()
 {
-  for(int i=1; i < 12; i++)
-  {
-    float x = map(i, 0, 11, 0, 800);
-    stroke(200, 0, 200);
-    line(x, 50, x, height-50);
-    line(50, x, width-50, x);
-  }
+   for(int i=50; i < 750; i += 70)
+   {
+     for(int j=50; j < 750; j += 70)
+     {
+       noFill();
+       stroke(200, 0, 200);
+       rect(i, j, 70, 70);
+     }
+   }
+   
+   textFont(border, 15);
+   fill(200, 0, 200);
+   for(int i=-5, j=60; i < 6; i++, j += 70)
+   {
+     text(i, 15, j);
+   }
+   
+   for(int i=-5, j=45; i < 6; i++, j += 70)
+   {
+     text(i, j, 25);
+   }
+
 }
